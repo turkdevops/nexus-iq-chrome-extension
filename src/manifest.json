@@ -13,7 +13,6 @@
     "declarativeContent",
     "cookies",
     "background",
-    "tabs",
     "https://search.maven.org/",
     "https://mvnrepository.com/",
     "https://repo1.maven.org/",
@@ -28,9 +27,8 @@
     "https://search.gocenter.io/",
     "https://ossindex.sonatype.org/",
     "https://github.com/",
-    "http://iq.ngrok.io/",
-    "https://kit.fontawesome.com/"
-
+    "https://kit.fontawesome.com/",
+    "http://iq.ngrok.io/"
   ],
   "content_scripts": [
     {

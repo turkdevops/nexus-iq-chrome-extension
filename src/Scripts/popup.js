@@ -671,12 +671,14 @@ const renderSecurityData = (message) => {
         '<td class="label">Threat Category:</td><td class="data">' +
         securityIssue.threatCategory +
         "</td>";
-      strAccordion += "</tr><tr>";
-      strAccordion +=
-        '<td class="label">url:</td><td class="data">' +
-        securityIssue.url +
-        "</td>";
       strAccordion += "</tr>";
+      // if (securityIssue.url != null) {
+      //   strAccordion +=
+      //       '<tr><td class="label">URL:</td><td class="data">' +
+      //       securityIssue.url +
+      //       "</td></tr>";
+      // }
+
       strAccordion += "</table>";
       strAccordion += "</div>";
     }
