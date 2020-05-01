@@ -1,12 +1,12 @@
 body {
     width: 600px;
     height: 400px;
-    margin: 2px;
-    padding: 2px;
+    margin: 10px;
+    padding: 10px;
     /* background:url(pic1.jpg); */
     /* background-size: cover; */
     /* background-position: center; */
-    font-family: sans-serif;
+    font-family:"Proxima Nova", "Helvetica Neue", Helvetica, sans-serif;
     border-radius: 5px;
     border-color: cornflowerblue;
     border-width: 2px;
@@ -15,6 +15,7 @@ body {
 #dialog {
     background-color: white;
     font-size: 1.33em;
+    font-size: 11px;
     /* width: 500px; */
 
 }
@@ -87,7 +88,7 @@ body {
     border: none;
     outline: none;
     height: 40px;
-    background: #fb2525;
+    background: #3d4e90;
     color: #fff;
     font-size: 18px;
     border-radius: 20px;
@@ -226,7 +227,7 @@ input[type=submit],
 input[type=reset],
 input[type=button] {
     width: 100%;
-    background-color: rgb(25, 74, 209);
+    background-color: rgb(61, 78, 144);
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -236,11 +237,11 @@ input[type=button] {
 }
 
 input[type=button] {
-    background-color: rgb(25, 74, 209);
+    background-color: rgb(61, 78, 144);
 }
 
 input[type=submit]:hover {
-    background-color: rgb(25, 74, 209);
+    background-color: rgb(61, 78, 144);
 }
 
 div .optionstable {

@@ -4,14 +4,13 @@
   "author": "Cameron Townshend - ctownshend@sonatype.com",
   "version": "0.0.1",
   "manifest_version": 2,
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "content_security_policy": "default-src 'self'; script-src 'self'; object-src 'self';connect-src http://iq.ngrok.io/; style-src 'self' data: 'unsafe-inline';",
+
   "permissions": [
     "notifications",
     "storage",
     "activeTab",
     "declarativeContent",
-    "webRequest",
-    "webRequestBlocking",
     "cookies",
     "background",
     "tabs",
@@ -29,7 +28,7 @@
     "https://search.gocenter.io/",
     "https://ossindex.sonatype.org/",
     "https://github.com/",
-    "*://*/*",
+    "http://iq.ngrok.io/",
     "https://kit.fontawesome.com/"
 
   ],
