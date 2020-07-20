@@ -1,6 +1,6 @@
 /*jslint es6  -W024 */
 "use strict";
-console.log("popup.js");
+console.log("popup.js?1.9.4");
 // import * as utils from "./js";
 const timeout = 3000; //3000milliseconds
 let hasLoadedHistory;

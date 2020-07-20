@@ -1,6 +1,6 @@
 /*jslint es6  -W024 */
 "use strict";
-console.log("background.js");
+console.log("background.js?1.9.4");
 // import {
 //   checkPageIsHandled,
 //   beginEvaluation,

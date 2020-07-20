@@ -1,7 +1,7 @@
 /*jslint es6  -W024 */
 "use strict";
 
-console.log("utils.js");
+console.log("utils.js?1.9.4");
 var artifact, nexusArtifact, hasVulns, settings;
 var valueCSRF;
 
