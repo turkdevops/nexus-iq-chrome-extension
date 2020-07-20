@@ -497,7 +497,6 @@ browser.runtime.onInstalled.addListener(function () {
             pageUrl: {
               hostEquals: "mirror.centos.org",
               schemes: ["http", "https"],
-              pathContains: "centos",
             },
           }),
           //https://pkgs.alpinelinux.org/package/edge/main/x86/openssl
@@ -746,7 +745,7 @@ chrome.contextMenus.create(
   {
     title: "Scan with Sonatype",
     contexts: ["link"],
-    targetUrlPatterns: ["http://mirror.centos.org/centos/*"],
+    targetUrlPatterns: ["http://mirror.centos.org/*"],
     onclick: async function (e) {
       console.log("onclick", e);
       let artifact = parseRPMFilename(e.linkUrl);
@@ -755,6 +754,7 @@ chrome.contextMenus.create(
 
       // browser.runtime.sendMessage(message);
       let OSSIndexDataResp = await addDataOSSIndex(artifact);
+      
       let message = {
         messagetype: messageTypes.rightClick,
         artifact: artifact,
@@ -776,8 +776,23 @@ chrome.contextMenus.create(
 
 function skipThis(url) {
   let skip = false;
-  if (url.indexOf("mirror.centos.org/centos/") >= 0) {
+  if (url.indexOf("mirror.centos.org/") >= 0) {
     skip = true;
   }
   return skip;
+}
+
+function testOSSData() { 
+  let OSSIndexDataResp = {
+    message: {
+      response: {
+        vulnerabilities: [
+          { cve: "CVE-2019-12345", cvssScore: 9 },
+          { cve: "CVE-2018-45678", cvssScore: 7 },
+          { cve: "CVE-2016-98765", cvssScore: 5.5 },
+        ],
+      },
+    },
+  };
+  return OSSIndexDataResp;
 }
