@@ -93,6 +93,7 @@ var messageTypes = {
   vulnerability: "vulnerability", // vuln scan results
   error: "error", //used to pass errors from background and content script to the popup
   annotateComponent: "annotateComponent",
+  rightClick: "rightClick"
 };
 const checkAllPermissions = async () => {
   return new Promise((resolve, reject) => {
@@ -422,6 +423,7 @@ const checkPageIsHandled = (url) => {
     url.search("https://repo.spring.io/list/") >= 0 || //https://repo.spring.io/list/jcenter-cache/org/cloudfoundry/cf-maven-plugin/1.1.3/
     url.search("/webapp/#/artifacts/") >= 0 || //Artifactory //http://10.77.1.26:8081/artifactory/webapp/#/artifacts/browse/tree/General/us-remote/antlr/antlr/2.7.1/antlr-2.7.1.jar
     url.search("/#browse/browse:") >= 0 || //Nexus http://nexus:8081/#browse/browse:maven-central:antlr%2Fantlr%2F2.7.2
+    url.search("mirror.centos.org/centos/") >= 0 || //Nexus http://nexus:8081/#browse/browse:maven-central:antlr%2Fantlr%2F2.7.2
     false //dummy entry so I dont have to miss the last ||
   ) {
     found = true;
@@ -539,7 +541,10 @@ const ParsePageURL = (url) => {
     artifact = parseRPMRepoURL(url);
   } else if (url.search("https://conan.io/center/") >= 0) {
     artifact = parseURLConan(url);
+  } else if (url.search("mirror.centos.org/centos/") >= 0) {
+    artifact = null;
   }
+
   console.log("ParsePageURL Complete. artifact:", artifact);
   //now we write this to background as
   //we pass variables through background
@@ -1678,19 +1683,18 @@ const parseArtifactoryURL = (url) => {
 const parseRPMRepoURL = (url) => {
   console.log("parseRPMRepoURL", url);
   //https://rpmfind.net/linux/RPM/epel/7/aarch64/Packages/m/mysql-proxy-0.8.5-2.el7.aarch64.html
+  //http://mirror.centos.org/centos/7/os/x86_64/Packages/ImageMagick-6.9.10.68-3.el7.x86_64.rpm
+  //http://mirror.centos.org/centos/7/os/x86_64/Packages/MySQL-python-1.2.5-1.el7.x86_64.rpm
   let format = formats.rpm;
-  let datasource = dataSources.NEXUSIQ;
+  let datasource = dataSources.OSSINDEX;
   let name, version, architecture;
   //11 components
   let elements = url.split("/");
   let artifact;
   if (elements.length < 6) {
-    //current version is inside the dom
-
     //return falsy
     artifact = "";
   } else {
-    //https://rpmfind.net/linux/RPM/epel/7/aarch64/Packages/m/mysql-proxy-0.8.5-2.el7.aarch64.html
     name = "mysql-proxy"; //elements[10];
     version = "0.8.5-2.el7"; //elements[10];
     architecture = "x86_64";
@@ -1707,6 +1711,46 @@ const parseRPMRepoURL = (url) => {
   return artifact;
 };
 ////////////////////////
+
+const parseRPMFilename = (url) => {
+  console.log("parseRPMFilename", url);
+  //https://rpmfind.net/linux/RPM/epel/7/aarch64/Packages/m/mysql-proxy-0.8.5-2.el7.aarch64.html
+  //http://mirror.centos.org/centos/7/os/x86_64/Packages/ImageMagick-6.9.10.68-3.el7.x86_64.rpm
+  //http://mirror.centos.org/centos/7/os/x86_64/Packages/MySQL-python-1.2.5-1.el7.x86_64.rpm
+  let format = formats.rpm;
+  let datasource = dataSources.OSSINDEX;
+  let name, version, architecture;
+  //11 components
+  let elements = url.split("/");
+  let artifact;
+  if (elements.length < 6) {
+    //return falsy
+    artifact = "";
+  } else {
+    let fileName = elements[elements.length - 1];
+    let fileNameElements = fileName.split("-");
+    let extensionElement = fileNameElements.pop();
+    let versionElement = fileNameElements.pop();
+    let extensionElements = extensionElement.split(".");
+    let fileNameExtension = extensionElements.pop();
+    architecture = extensionElements.pop();
+
+    name = fileNameElements.join("-");
+    version = versionElement + "-" + extensionElement;
+
+    name = encodeURIComponent(name);
+    version = encodeURIComponent(version);
+    artifact = {
+      format: format,
+      name: name,
+      version: version,
+      architecture: architecture,
+      datasource: datasource,
+    };
+  }
+  return artifact;
+};
+///////////////////////
 
 const parseURLConan = (url) => {
   // https://conan.io/center/apache-apr/1.6.3/
@@ -2344,14 +2388,19 @@ function parsePyPI(format, url) {
   //"numpy-1.16.4-cp27-cp27m-macosx_10_6_intel.macosx_10_9_intel.macosx_10_9_x86_64.macosx_10_10_intel.macosx_10_10_x86_64.whl"
   //qualifier is ->cp27-cp27m-macosx_10_6_intel.macosx_10_9_intel.macosx_10_9_x86_64.macosx_10_10_intel.macosx_10_10_x86_64
   let name_ver = `${name}-${version}-`;
-  qualifier = qualifierHTML.substr(
-    name_ver.length,
-    qualifierHTML.lastIndexOf(".") - name_ver.length
-  );
+  if (qualifierHTML.indexOf(".tar.gz") >= 0) {
+    qualifier = "";
+    extension = "tar.gz";
+  } else {
+    qualifier = qualifierHTML.substr(
+      name_ver.length,
+      qualifierHTML.lastIndexOf(".") - name_ver.length
+    );
+    extension = qualifierHTML.substring(qualifierHTML.lastIndexOf(".") + 1);
+  }
   // extension = qualifierHTML.substr(qualifierHTML.lastIndexOf(".") + 1);
   //$("#files > table > tbody:contains('.zip')").text()
   console.log("qualifier", qualifier);
-  extension = qualifierHTML.substring(qualifierHTML.lastIndexOf(".") + 1);
   console.log("extension", extension);
   name = encodeURIComponent(name);
   version = encodeURIComponent(version);

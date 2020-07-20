@@ -12,6 +12,7 @@
     "cookies",
     "background",
     "storage",
+    "contextMenus",
     "https://pkgs.alpinelinux.org/",
     "https://anaconda.org/anaconda/",
     "https://chocolatey.org/",
@@ -35,7 +36,8 @@
     "https://search.maven.org/",
     "https://repo.spring.io/list/",
     "https://conan.io/center/",
-    "https://tracker.debian.org/pkg/"
+    "https://tracker.debian.org/pkg/",
+    "http://mirror.centos.org/"
   ],
   "content_scripts": [
     {
@@ -63,7 +65,8 @@
         "https://rpmfind.net/linux/RPM/epel/*",
         "https://rubygems.org/*",
         "https://search.gocenter.io/*",
-        "https://search.maven.org/*"
+        "https://search.maven.org/*",
+        "http://mirror.centos.org/*"
       ],
       "css": ["css/pagestyle.css"],
       "js": [

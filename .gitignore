@@ -7,3 +7,5 @@ data
 .idea/*
 release
 SAVETEXT.txt
+dist
+packages

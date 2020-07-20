@@ -412,7 +412,7 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     // console.log("tab2", tab2);
     let url = tab.url;
 
-    if (url && checkPageIsHandled(url)) {
+    if (url && checkPageIsHandled(url) && !skipThis(url)) {
       // loadSettingsAndEvaluate(parseMavenURL(url));
       let displayMessageData = await beginEvaluation(tab);
       //this may need to install scripts into the background page so the next stuff
@@ -492,6 +492,14 @@ browser.runtime.onInstalled.addListener(function () {
     browser.declarativeContent.onPageChanged.addRules([
       {
         conditions: [
+          //http://mirror.centos.org/centos/*"],
+          new browser.declarativeContent.PageStateMatcher({
+            pageUrl: {
+              hostEquals: "mirror.centos.org",
+              schemes: ["http", "https"],
+              pathContains: "centos",
+            },
+          }),
           //https://pkgs.alpinelinux.org/package/edge/main/x86/openssl
           new browser.declarativeContent.PageStateMatcher({
             pageUrl: {
@@ -732,4 +740,44 @@ const displayEvaluationResults = async (displayMessageData, tabId) => {
 
 function receiveText(resultsArray) {
   console.log(resultsArray[0]);
+}
+
+chrome.contextMenus.create(
+  {
+    title: "Scan with Sonatype",
+    contexts: ["link"],
+    targetUrlPatterns: ["http://mirror.centos.org/centos/*"],
+    onclick: async function (e) {
+      console.log("onclick", e);
+      let artifact = parseRPMFilename(e.linkUrl);
+      console.log("artifact", artifact);
+      // chrome.tabs.create({ "url": "html/popup.html" });
+
+      // browser.runtime.sendMessage(message);
+      let OSSIndexDataResp = await addDataOSSIndex(artifact);
+      let message = {
+        messagetype: messageTypes.rightClick,
+        artifact: artifact,
+        OSSIndexDataResp: OSSIndexDataResp,
+        targetElement: e,
+      };
+      browser.tabs.query({ active: true, currentWindow: true }, function (
+        tabs
+      ) {
+        browser.tabs.sendMessage(tabs[0].id, message);
+      });
+    },
+  },
+  function () {
+    //callback
+    console.log("Callback from Context menu");
+  }
+);
+
+function skipThis(url) {
+  let skip = false;
+  if (url.indexOf("mirror.centos.org/centos/") >= 0) {
+    skip = true;
+  }
+  return skip;
 }

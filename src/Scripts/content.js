@@ -32,6 +32,11 @@ function gotMessage(receivedMessage, sender, sendResponse) {
         console.log("vulnerability message", message);
         processVulnerability(message);
         break;
+      case messageTypes.rightClick:
+        console.log("vulnerability message", message);
+        processRightClick(message);
+        break;
+
       default:
         console.log("Unknown message type: " + message.messagetype);
         break;
@@ -99,5 +104,44 @@ function processPage(message = { messagetype: messageTypes.beginEvaluate }) {
     console.log("message.messagetype", message.messagetype);
   } else {
     console.log("message.messagetype", message.messagetype);
+  }
+}
+
+function processRightClick(message) {
+  console.log("processRightClick", message);
+  let artifact = message.artifact;
+  let vulns = message.OSSIndexDataResp.message.response.vulnerabilities;
+  let maxVuln = vulns.reduce((acc, curr) => {
+    return acc > curr.cvssScore ? acc : curr.cvssScore;
+  }, 0);
+  let vulnClass = maxVuln >= 8 ? "severe" : maxVuln > 5 ? "medium" : "";
+  console.debug("Setting vuln class: " + vulnClass);
+  // console.debug("browser: ", browser);
+  // var repoDetails = findRepoType();
+  // console.debug("repoDetails: ", repoDetails);
+  var packagename = message.targetElement.selectionText;
+  var repoDetails = "rpm";
+  if (vulns.length > 0) {
+    var x = document.querySelectorAll(`a[href='${packagename}']`);
+    console.debug("found titles", x);
+    let maxnum = 1; //x.length;
+    for (var i = 0; i < maxnum; i++) {
+      console.debug("adding to class: " + vulnClass);
+      x[i].classList.add(vulnClass);
+      x[i].classList.add("vuln");
+      var element = document.createElement("div");
+      var newContent = document.createTextNode(
+        "Hi there and greetings!" +
+          vulns
+            .map((vuln) => {
+              return vuln.cve;
+            })
+            .join(", ")
+      );
+      element.appendChild(newContent);
+      // var currentDiv = document.getElementById("div1");
+      document.body.insertBefore(element, x[i]);
+      console.log("element.parentNode", element.parentNode, x[i], newContent);
+    }
   }
 }
