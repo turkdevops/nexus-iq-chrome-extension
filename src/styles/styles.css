@@ -358,12 +358,11 @@ select {
 }
 
 #tabs .ui-tabs-panel {
+  box-sizing: border-box;
   background: white;
-  border-width: 0px 1px 1px 1px;
-  border-color: #5c74eb;
   border-radius: 5px;
   border-width: 2px;
-  margin: 2px 0px 0px 0px;
+  padding: 20px 0 0 0;
 }
 
 a img {
@@ -496,7 +495,7 @@ rect {
 /* The switch - the box around the slider */
 .switch {
   position: relative;
-  display: inline-block;
+  display: block;
   width: 60px;
   height: 34px;
 }
@@ -602,3 +601,6 @@ div.status-message {
   vertical-align: middle;
 }
 
+.nx-body--popout {
+  width: 800px;
+}
