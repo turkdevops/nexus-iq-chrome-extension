@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="nx-html">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,6 +11,7 @@
     />
 
     <link rel="stylesheet" href="../styles/styles.css" />
+    <link rel="stylesheet" href="../styles/react-shared-components.css" />
     <script src="../scripts/lib/jquery.min.js"></script>
     <!-- <script
       src="../scripts/lib/jquery-ui-1.12.1/jquery-ui.min.js"
@@ -19,18 +20,21 @@
 
     <title>Nexus IQ Plug-in - Options</title>
   </head>
-  <body class="nx-body logintable">
+  <body class="nx-body">
     <div class="nx-page">
-      <header class="nx-page-title">
-        <h1 class="nx-h1">Sonatype Nexus IQ Chrome Extension Configuration</h1>
-      </header>
+      <!-- Use the Page Header Component HERE -->
       <div class="nx-page-content">
-        <div id="root" class="nx-page-content-main"></div>
-        <main class="nx-page-content-main">
+        <main class="nx-page-main">
+          <header class="nx-page-title">
+            <div class="nx-page-title__inner">
+              <h1 class="nx-h1">Sonatype Nexus IQ Chrome Extension Configuration</h1>
+            </div>
+          </header>
+          <div id="root"></div>
           <div class="nx-tile">
             <form id="form" class="nx-form">
-              <div id="buttonDiv" class="logintable">
-                <table id="optionstable" class="logintable">
+              <div id="buttonDiv">
+                <table id="optionstable">
                   <tr>
                     <td>
                       <label for="url"

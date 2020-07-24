@@ -3,7 +3,7 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js">
+<html class="no-js nx-html nx-html--page-scrolling">
   <!--<![endif]-->
   <head>
     <title>Nexus IQ Plug-in - Component Info</title>
@@ -19,17 +19,20 @@
     />
     <link rel="stylesheet" href="../styles/font-awesome.min.css" />
     <link rel="stylesheet" href="../styles/styles.css?v1.9.4"  type="text/css"/>
+    <link rel="stylesheet" href="@sonatype/react-shared-components/react-shared-components.css" />
   </head>
   <body class="nx-body">
     <div class="nx-page" id="container">
       <div class="loader" id="loader">
         <img src="../images/SON_logo_favicon.png" />
       </div>
-      <header class="nx-page-title">
-        <h1 class="nx-h1">Sonatype Nexus IQ Chrome Extension</h1>
-      </header>
       <div class="nx-page-content">
-        <main class="nx-page-content-main">
+        <main class="nx-page-main">
+          <header class="nx-page-title">
+            <div class="nx-page-title__inner">
+              <h1 class="nx-h1">Sonatype Nexus IQ Chrome Extension</h1>
+            </div>
+          </header>
           <div id="tabs" class="optionstable animate-bottom">
             <ul>
               <li><a href="#tabs-1">Component Info</a></li>
