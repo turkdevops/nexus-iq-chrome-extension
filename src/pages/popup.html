@@ -33,7 +33,7 @@
               <h1 class="nx-h1">Sonatype Nexus IQ Chrome Extension</h1>
             </div>
           </header>
-          <div id="tabs" class="optionstable animate-bottom">
+          <div id="tabs" class="animate-bottom">
             <ul>
               <li><a href="#tabs-1">Component Info</a></li>
               <li><a href="#tabs-2">Security</a></li>
@@ -42,61 +42,59 @@
               <!-- <li><a href="#tabs-5">Graph</a></li> -->
             </ul>
             <div id="tabs-1" class="component-tab">
-              <div class="info-display">
-                <table class="optionstable">
-                  <tr>
-                    <td class="label">Format:</td>
-                    <td class="data"><span id="format"></span></td>
+              <table class="nx-table">
+                <tr class="nx-table-row">
+                  <th class="nx-cell nx-cell--header nx-cell--header--vertical">Format:</th>
+                  <td class="nx-cell"><span id="format"></span></td>
+                </tr>
+                <div id="component_identifier">
+                  <tr class="nx-table-row">
+                    <th class="nx-cell nx-cell--header nx-cell--header--vertical">Package:</th>
+                    <td class="nx-cell"><span id="package"></span></td>
                   </tr>
-                  <div id="component_identifier">
-                    <tr>
-                      <td class="label">Package:</td>
-                      <td class="data"><span id="package"></span></td>
-                    </tr>
-                    <tr>
-                      <td class="label">Version:</td>
-                      <td class="data"><span id="version"></span></td>
-                    </tr>
-                  </div>
+                  <tr class="nx-table-row">
+                    <th class="nx-cell nx-cell--header nx-cell--header--vertical">Version:</th>
+                    <td class="nx-cell"><span id="version"></span></td>
+                  </tr>
+                </div>
 
-                  <tr>
-                    <td class="label"><span id="hash_label">Hash:</span></td>
-                    <td class="data"><span id="hash"></span></td>
-                  </tr>
-                  <tr>
-                    <td class="label">Match State:</td>
-                    <td class="data"><span id="matchstate"></span></td>
-                  </tr>
-                  <tr id="CatalogDate_Row">
-                    <td class="label">CatalogDate:</td>
-                    <td class="data"><span id="catalogdate"></span></td>
-                  </tr>
-                  <tr id="RelativePopularity_Row">
-                    <td class="label">RelativePopularity:</td>
-                    <td class="data"><span id="relativepopularity"></span></td>
-                  </tr>
-                  <tr>
-                    <td class="label">Highest CVSS Score:</td>
-                    <td class="data">
-                      <span id="Highest_CVSS_Score" class="maxIssue"></span
-                      ><span id="Num_CVSS_Issues" class="numissues"></span>
-                    </td>
-                  </tr>
+                <tr class="nx-table-row">
+                  <th class="nx-cell nx-cell--header nx-cell--header--vertical"><span id="hash_label">Hash:</span></th>
+                  <td class="nx-cell"><span id="hash"></span></td>
+                </tr>
+                <tr class="nx-table-row">
+                  <th class="nx-cell nx-cell--header nx-cell--header--vertical">Match State:</th>
+                  <td class="nx-cell"><span id="matchstate"></span></td>
+                </tr>
+                <tr id="CatalogDate_Row">
+                  <th class="nx-cell nx-cell--header nx-cell--header--vertical">CatalogDate:</th>
+                  <td class="nx-cell"><span id="catalogdate"></span></td>
+                </tr>
+                <tr id="RelativePopularity_Row">
+                  <th class="nx-cell nx-cell--header nx-cell--header--vertical">RelativePopularity:</th>
+                  <td class="nx-cell"><span id="relativepopularity"></span></td>
+                </tr>
+                <tr class="nx-table-row">
+                  <th class="nx-cell nx-cell--header nx-cell--header--vertical">Highest CVSS Score:</th>
+                  <td class="nx-cell">
+                    <span id="Highest_CVSS_Score" class="maxIssue"></span
+                    ><span id="Num_CVSS_Issues" class="numissues"></span>
+                  </td>
+                </tr>
 
-                  <tr>
-                    <td class="label">Data Source:</td>
-                    <td class="data"><span id="datasource"></span></td>
-                  </tr>
-                  <tr>
-                    <td class="label">Package Source:</td>
-                    <td class="data"><span id="PackageSource"></span></td>
-                  </tr>
-                  <tr>
-                    <td class="label">Applications:</td>
-                    <td class="data"><span id="applications"></span></td>
-                  </tr>
-                </table>
-              </div>
+                <tr class="nx-table-row">
+                  <th class="nx-cell nx-cell--header nx-cell--header--vertical">Data Source:</th>
+                  <td class="nx-cell"><span id="datasource"></span></td>
+                </tr>
+                <tr class="nx-table-row">
+                  <th class="nx-cell nx-cell--header nx-cell--header--vertical">Package Source:</th>
+                  <td class="nx-cell"><span id="PackageSource"></span></td>
+                </tr>
+                <tr class="nx-table-row">
+                  <th class="nx-cell nx-cell--header nx-cell--header--vertical">Applications:</th>
+                  <td class="nx-cell"><span id="applications"></span></td>
+                </tr>
+              </table>
             </div>
 
             <!-- Security -->
@@ -119,49 +117,55 @@
             </div>
             <!-- License -->
             <div id="tabs-4">
-
-              <table class="optionstable" id="licensetable">
-                <tr>
-                  <td colspan="2"><strong>DeclaredLicenses</strong></td>
-
-                </tr>
-
-                <div id="declaredlicenses">
-                  <tr>
-                    <td>
+              <table class="nx-table" id="licensetable">
+                <thead>
+                  <tr class="nx-table-row">
+                    <th class="nx-cell nx-cell--header" colspan="2">Declared Licenses</th>
+                  </tr>
+                </thead>
+                <tbody id="declaredlicenses">
+                  <tr class="nx-table-row">
+                    <th class="nx-cell nx-cell--header nx-cell--header--vertical">
                       License Id:
-                      <a
-                        id="declaredlicenses_licenseLink"
-                        href="test.html"
-                        target="_blank"
-                        >LicenseLink</a
-                      >
-                    </td>
-                    <td>
-                      License Name: <span id="declaredlicenses_licenseName"></span>
+                    </th>
+                    <td class="nx-cell">
+                      <a id="declaredlicenses_licenseLink"
+                         href="test.html"
+                         target="_blank">
+                        LicenseLink
+                      </a>
                     </td>
                   </tr>
-                </div>
-
-                <tr>
-                  <td colspan="2">
-                    <p><strong>Observed Licenses</strong></p>
-                  </td>
-                </tr>
-                <div id="observedlicenses">
-                  <tr>
-                    <td>License Id: <span id="observedLicenses_licenseId"></span></td>
-                    <td>
+                  <tr class="nx-table-row">
+                    <th class="nx-cell nx-cell--header nx-cell--header--vertical">License Name:</th>
+                    <td class="nx-cell"><span id="declaredlicenses_licenseName"></span></td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="nx-table">
+                <thead>
+                  <tr class="nx-table-row">
+                    <th class="nx-cell nx-cell--header" colspan="2">Observed Licenses</th>
+                  </tr>
+                </thead>
+                <tbody id="observedlicenses">
+                  <tr class="nx-table-row">
+                    <th class="nx-cell nx-cell--header nx-cell--header--vertical">License Id:</th>
+                    <td class="nx-cell"><span id="observedLicenses_licenseId"></span></td>
+                  </tr>
+                  <tr class="nx-table-row">
+                    <th class="nx-cell nx-cell--header nx-cell--header--vertical">
                       <div id="observedLicenses_licenseLink"></div>
-                      License Name: <span id="observedLicenses_licenseName"></span>
-                    </td>
+                      License Name:
+                    </th>
+                    <td class="nx-cell"><span id="observedLicenses_licenseName"></span></td>
                   </tr>
-                </div>
+                </tbody>
               </table>
             </div>
             <div id="error" class="nx-alert nx-alert--error"><p>Some error occurred</p></div>
           </div>
-        </main
+        </main>
       </div>
     </div>
     <!--[if lt IE 7]>
