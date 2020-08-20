@@ -388,41 +388,43 @@ const renderSecurityDataOSSIndex = (message) => {
       }
       let className = styleCVSS(securityIssue.cvssScore);
       // let vulnerabilityCode = (typeof securityIssue.cve === "undefined") ? 'No CVE' : securityIssue.cve;
+      strAccordion += '<div class="nx-tile">';
       strAccordion +=
-        '<h3><span class="headingreference">' +
+        '<header class="nx-tile-header">' +
+        '<div class="nx-tile-header__title"><h2 class="nx-h2">' +
         vulnerabilityCode +
-        '</span><span class="headingseverity ' +
+        '<span class="headingseverity ' +
         className +
         '">CVSS:' +
         securityIssue.cvssScore +
-        "</span></h3>";
+        '</span></h2></div></div>';
       // strAccordion += '<h3><span class="headingreference">' + vulnerabilityCode + '</span><span class="headingseverity ' + className +'">CVSS:' + securityIssue.cvssScore + '</span></h3>';
-      strAccordion += "<div>";
-      strAccordion += '<table class="optionstable">';
+      strAccordion += '<div class="nx-tile-content">';
+      strAccordion += '<table class="nx-table">';
       strAccordion +=
-        '<tr><td><span class="label">Title:</span></td><td><span class="data">' +
+        '<tr><th class="nx-cell nx-cell--header nx-cell--header--vertical">Title:</th><td class="nx-cell">' +
         securityIssue.title +
-        "</span></td></tr>";
+        "</td></tr>";
       strAccordion +=
-        '<tr><td><span class="label">Score:</span></td><td><span class="data">' +
+        '<tr><th class="nx-cell nx-cell--header nx-cell--header--vertical">Score:</th><td class="nx-cell">' +
         securityIssue.cvssScore +
-        "</span></td></tr>";
+        "</td></tr>";
       strAccordion +=
-        '<tr><td><span class="label">CVSS 3 Vector:</span></td><td><span class="data">' +
+        '<tr><th class="nx-cell nx-cell--header nx-cell--header--vertical">CVSS 3 Vector:</th><td class="nx-cell">' +
         securityIssue.cvssVector +
-        "</span></td></tr>";
+        "</td></tr>";
       strAccordion +=
-        '<tr><td><span class="label">Description:</span></td><td><span class="data">' +
+        '<tr><th class="nx-cell nx-cell--header nx-cell--header--vertical">Description:</th><td class="nx-cell">' +
         securityIssue.description +
-        "</span></td></tr>";
+        "</td></tr>";
       strAccordion +=
-        '<tr><td><span class="label">Id:</span></td><td><span class="data">' +
+        '<tr><th class="nx-cell nx-cell--header nx-cell--header--vertical">Id:</th><td class="nx-cell">' +
         securityIssue.id +
-        "</span></td></tr>";
+        "</td></tr>";
       strAccordion +=
-        '<tr><td><span class="label">Reference:</span></td><td><span class="data">' +
+        '<tr><th class="nx-cell nx-cell--header nx-cell--header--vertical">Reference:</th><td class="nx-cell">' +
         securityIssue.reference +
-        "</span></td></tr>";
+        "</td></tr>";
       strAccordion += "</table>";
       strAccordion += "</div>";
     }
